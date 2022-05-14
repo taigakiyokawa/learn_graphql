@@ -39,14 +39,16 @@ class jsonPlaceAPI extends RESTDataSource {
     this.baseURL = "https://jsonplaceholder.typicode.com/";
   }
 
-  async getUsers() {
-    const data = await this.get("/users");
-    return data;
-  }
-  async getUser(id) {
-    const data = await this.get(`/users/${id}`);
-    return data;
-  }
+  // async getUsers() {
+  //   const data = await this.get("/users");
+  //   return data;
+  // }
+
+  // async getUser(id) {
+  //   const data = await this.get(`/users/${id}`);
+  //   return data;
+  // }
+
   async getPosts() {
     const data = await this.get("/posts");
     return data;
@@ -59,8 +61,12 @@ const resolvers = {
     users: () => {
       return prisma.user.findMany();
     },
-    user: async (_, args, { dataSources }) => {
-      return dataSources.jsonPlaceAPI.getUser(args.id);
+    user: async (_, args) => {
+      return prisma.user.findUnique({
+        where: {
+          id: Number(args.id),
+        },
+      });
     },
     posts: async (_, __, { dataSources }) => {
       return dataSources.jsonPlaceAPI.getPosts();
