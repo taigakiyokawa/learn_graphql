@@ -34,10 +34,16 @@ const resolvers = {
       return response.data;
     },
     user: async (parent, args) => {
-      const response = await axios.get(
+      let response = await axios.get(
         `https://jsonplaceholder.typicode.com/users/${args.id}`
       );
-      return response.data;
+      let user = response.data;
+      response = await axios.get("https://jsonplaceholder.typicode.com/posts");
+      const myPosts = response.data.filter((post) => post.userId == args.id);
+      user = Object.assign({}, user, {
+        myPosts: myPosts,
+      });
+      return user;
     },
     posts: async () => {
       const response = await axios.get(
