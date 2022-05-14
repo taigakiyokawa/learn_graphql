@@ -21,6 +21,7 @@ const users = [
 const resolvers = {
   Query: {
     hello: (parent, args) => `Hello ${args.name}`,
+    users: () => users,
   },
 };
 
