@@ -29,9 +29,11 @@ const resolvers = {
       );
       return response.data;
     },
-    user: (parent, args) => {
-      const user = users.find((user) => user.id === args.id);
-      return user;
+    user: async (parent, args) => {
+      const response = await axios.get(
+        `https://jsonplaceholder.typicode.com/users/${args.id}`
+      );
+      return response.data;
     },
   },
 };
