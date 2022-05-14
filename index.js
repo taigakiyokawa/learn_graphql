@@ -12,6 +12,11 @@ const typeDefs = gql`
   }
 `;
 
+const users = [
+  { id: "1", name: "John Doe", email: "john@test.com" },
+  { id: "2", name: "Jane Doe", email: "jane@example.com" },
+];
+
 const resolvers = {
   Query: {
     hello: (parent, args) => `Hello ${args.name}`,
