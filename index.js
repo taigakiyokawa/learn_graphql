@@ -1,5 +1,4 @@
 const { ApolloServer, gql } = require("apollo-server");
-const axios = require("axios").default;
 const { RESTDataSource } = require("apollo-datasource-rest");
 
 const typeDefs = gql`
