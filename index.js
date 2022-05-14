@@ -25,6 +25,12 @@ const typeDefs = gql`
     user(id: ID!): User
     posts: [Post]
   }
+
+  type Mutation {
+    createUser(name: String!, email: String!): User
+    updateUser(id: Int!, name: String!, email: String!): User
+    deleteUser(id: Int!): User
+  }
 `;
 
 class jsonPlaceAPI extends RESTDataSource {
@@ -60,6 +66,34 @@ const resolvers = {
       return dataSources.jsonPlaceAPI.getPosts();
     },
   },
+
+  Mutation: {
+    createUser: (_, args) => {
+      return prisma.user.create({
+        data: {
+          name: args.name,
+          email: args.email,
+        },
+      });
+    },
+    updateUser: (_, args) => {
+      return prisma.user.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          name: args.name,
+          email: args.email,
+        },
+      });
+    },
+    deleteUser: (_, args) => {
+      return prisma.user.delete({
+        where: { id: args.id },
+      });
+    },
+  },
+
   User: {
     myPosts: async (parent, __, { dataSources }) => {
       const posts = await dataSources.jsonPlaceAPI.getPosts();
