@@ -20,6 +20,7 @@ const typeDefs = gql`
     hello(name: String!): String
     users: [User]
     user(id: ID!): User
+    posts: [Post]
   }
 `;
 
@@ -40,6 +41,12 @@ const resolvers = {
     user: async (parent, args) => {
       const response = await axios.get(
         `https://jsonplaceholder.typicode.com/users/${args.id}`
+      );
+      return response.data;
+    },
+    posts: async () => {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
       );
       return response.data;
     },
