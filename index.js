@@ -10,6 +10,7 @@ const typeDefs = gql`
   type Query {
     hello(name: String!): String
     users: [User]
+    user(id: ID!): User
   }
 `;
 
@@ -22,6 +23,10 @@ const resolvers = {
   Query: {
     hello: (parent, args) => `Hello ${args.name}`,
     users: () => users,
+    user: (parent, args) => {
+      const user = users.find((user) => user.id === args.id);
+      return user;
+    },
   },
 };
 
