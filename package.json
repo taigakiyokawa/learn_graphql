@@ -18,12 +18,14 @@
   },
   "homepage": "https://github.com/taigakiyokawa/learn_graphql_server#readme",
   "dependencies": {
+    "@prisma/client": "^3.14.0",
     "apollo-datasource-rest": "^3.5.3",
     "apollo-server": "^3.7.0",
     "axios": "^0.27.2",
     "graphql": "^16.5.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "prisma": "^3.14.0"
   }
 }
