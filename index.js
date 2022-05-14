@@ -25,6 +25,10 @@ const typeDefs = gql`
     user(id: ID!): User
     posts: [Post]
   }
+
+  type Mutation {
+    createUser(name: String!, email: String!): User
+  }
 `;
 
 class jsonPlaceAPI extends RESTDataSource {
@@ -60,6 +64,18 @@ const resolvers = {
       return dataSources.jsonPlaceAPI.getPosts();
     },
   },
+
+  Mutation: {
+    createUser: (_, args) => {
+      return prisma.user.create({
+        data: {
+          name: args.name,
+          email: args.email,
+        },
+      });
+    },
+  },
+
   User: {
     myPosts: async (parent, __, { dataSources }) => {
       const posts = await dataSources.jsonPlaceAPI.getPosts();
