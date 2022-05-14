@@ -1,5 +1,8 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { RESTDataSource } = require("apollo-datasource-rest");
+const { PrismaClient } = require("@prisma/client");
+
+const prisma = new PrismaClient();
 
 const typeDefs = gql`
   type User {
