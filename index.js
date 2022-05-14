@@ -37,19 +37,22 @@ const resolvers = {
       let response = await axios.get(
         `https://jsonplaceholder.typicode.com/users/${args.id}`
       );
-      let user = response.data;
-      response = await axios.get("https://jsonplaceholder.typicode.com/posts");
-      const myPosts = response.data.filter((post) => post.userId == args.id);
-      user = Object.assign({}, user, {
-        myPosts: myPosts,
-      });
-      return user;
+      return response.data;
     },
     posts: async () => {
       const response = await axios.get(
         "https://jsonplaceholder.typicode.com/posts"
       );
       return response.data;
+    },
+  },
+  User: {
+    myPosts: async (parent) => {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      const myPosts = response.data.filter((post) => post.userId == parent.id);
+      return myPosts;
     },
   },
 };
