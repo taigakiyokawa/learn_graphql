@@ -5,3 +5,9 @@ const typeDefs = gql`
     hello: String
   }
 `;
+
+const resolvers = {
+  Query: {
+    hello: () => "Hello World",
+  },
+};
